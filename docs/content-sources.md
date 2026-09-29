@@ -6,10 +6,28 @@ Imported on 2026-09-29 from live FIT pages. This is a repository-managed snapsho
 
 - [Official group profile, English](https://www.fit.vut.cz/research/group/blocksec%40fit/.en): BlockSec@FIT; full name **Blockchains & System Security @ FIT**. Used for the site identity and a short paraphrase of its research focus.
 - [Official team](https://www.fit.vut.cz/research/group/blocksec%40fit/team/.en): nine profiles: one principal researcher, five members, and three alumni. Roles are group roles; alumni remain labelled as such.
-- Each person's `website` links to the official profile used to verify their name and, where available, academic position. Biographies summarize either the listed research interests, role, or linked publications; they are not copied biographies.
+- Each person has an on-site profile. Biographies summarize either the listed research interests, role, or linked publications; they are not copied biographies.
 - [Ivan Homoliak's profile](https://www.fit.vut.cz/person/110908/.en): public professional contact details. The faculty postal address comes from the official group page.
 
 Only people listed on the team page receive local profiles. A publication co-author's FIT affiliation alone does not establish membership in BlockSec@FIT.
+
+### Local profile details
+
+Contact/profile pages were rechecked on 2026-09-29. Published academic titles, positions, department affiliations, professional contact details, office numbers, and researcher identifiers are stored locally in `src/data/people.ts`. The local profile displays the values directly; there is no external FIT profile button. Unpublished fields remain absent. Alumni keep their group status even where FIT separately lists a teaching role or contact details.
+
+| Person | Official source |
+| --- | --- |
+| Ivan Homoliak | [Contact](https://www.fit.vut.cz/person/110908/.en), [research interests](https://www.fit.vut.cz/person/homoliak/curriculum/.en) |
+| Richard Gazdík | [Contact](https://www.fit.vut.cz/person/251519/.en), [research interests](https://www.fit.vut.cz/person/igazdik/curriculum/.en) |
+| Zdeněk Lapeš | [Contact](https://www.fit.vut.cz/person/230614/.en) |
+| Juraj Mariani | [Contact](https://www.fit.vut.cz/person/231638/.en), [research interests](https://www.fit.vut.cz/person/imariani/curriculum/.en) |
+| Samuel Olekšák | [Contact](https://www.fit.vut.cz/person/221787/.en) |
+| Martin Perešíni | [Contact](https://www.fit.vut.cz/person/175200/.en) |
+| Jozef Drga | [Contact](https://www.fit.vut.cz/person/233809/.en) |
+| Ivana Stančíková | [Contact](https://www.fit.vut.cz/person/186193/.en) |
+| Marek Tamaškovič | [Contact](https://www.fit.vut.cz/person/187380/.en) |
+
+Research interests are paraphrased from the three available curriculum pages. Jozef Drga's FIT position “External Pedagogue” is rendered as “External lecturer.” Martin Perešíni's administrative “Employee Off-record” label is not used as a public job title; his publication-based biography and verified department affiliation are retained. Profile pages list all work in this site's catalogue, not every historical item on FIT's separate teaching, grant, and publication databases. Sources remain in this document for maintenance.
 
 ## Publications
 

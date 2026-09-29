@@ -7,14 +7,29 @@ See [content sources](docs/content-sources.md) for the import scope, author-cred
 
 ## Run locally
 
-Use Node.js 24 (`.node-version`), then:
+Use Node.js 26.10.0 (`.node-version`) and [pnpm 12.6.0](https://pnpm.io/installation) (`packageManager` in `package.json`), then:
+
+With nvm, run `nvm install` once and `nvm use` when opening a terminal in this repository; `.nvmrc` selects the required Node version.
+For pnpm on macOS/Linux, use the standalone installer:
 
 ```sh
-npm install
-npm run dev
+curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=12.6.0 sh -
 ```
 
-`npm run build` checks types and builds `dist/`. `npm run preview` previews that build.
+Open a new terminal after installation. Older Corepack versions try to run `bin/pnpm.cjs`, which pnpm 12's native distribution does not provide. If you see that error, ensure `command -v pnpm` points to the standalone installation rather than a Corepack shim.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+`pnpm build` checks types and builds `dist/`. `pnpm preview` previews that build.
+
+Dependency versions were checked against the npm registry and official GitHub Action releases on 2026-09-29.
+Node 26 is the current release; CI uses the same Node/pnpm versions listed above.
+TypeScript remains on the latest compatible 6.0 release because `@astrojs/check` requires its compiler API.
+TypeScript 7 does not yet expose that API; see [Astro's tracking issue](https://github.com/withastro/astro/issues/17268).
+See the [dependency audit](docs/dependencies.md) for checked versions and compatibility limits.
 
 ## Make changes
 
@@ -44,6 +59,11 @@ Use `withBase()` from `src/lib/urls.ts` for internal paths in Astro components.
 Give each person a stable `personId` in `src/data/people.ts`, for example `daniel-rolnik`.
 Give each project a unique `projectId` in `src/data/projects.ts`.
 Use lowercase letters, numbers, and hyphens for IDs; keep them unchanged when renaming an entry so existing links keep working.
+
+Each person has a local profile at `/people/<personId>/`, generated from `src/data/people.ts`.
+Add their biography, academic titles (`qualifications`), position, affiliation, email, phone, office, research interests, and researcher identifiers there as available.
+Profiles show these details directly, followed by all of the person's linked projects and publications; an external faculty profile is not required.
+On the People index, Projects and Publications are collapsed by default. Each expands to at most five entries, with a link to the corresponding full-profile section when more are available.
 
 To add a publication, paste one BibTeX entry into `publicationEntries` in `src/data/publications.ts`:
 
@@ -84,11 +104,12 @@ This does not assign every publication author as a project member: maintain a pr
 A project's optional `url` points to its own homepage or code repository. Omit it when no separate destination is available; its related publications already provide paper links.
 
 Each person's publications and projects appear automatically on the People page; do not maintain a second list on the person.
-Links point to `/people/#<personId>`, `/publications/#<publicationId>`, and `/projects/#<projectId>`.
+Author and project-member links point to `/people/<personId>/`. Existing `/people/#<personId>` anchors still identify their cards on the People index.
+Publication and project links point to `/publications/#<publicationId>` and `/projects/#<projectId>`.
 The former `/research/` route redirects to `/projects/`.
 
-`npm run build` rejects malformed BibTeX, incomplete required fields, invalid or duplicate IDs, and references to missing people or projects.
-Run `npm test` to check parsing, relationship validation, and automatic reverse links. These tests also run in CI.
+`pnpm build` rejects malformed BibTeX, incomplete required fields, invalid or duplicate IDs, and references to missing people or projects.
+Run `pnpm test` to check parsing, relationship validation, and automatic reverse links. These tests also run in CI.
 
 ## GitHub Pages
 
@@ -98,7 +119,7 @@ On GitHub Free, Pages requires a public repository. Private repositories support
 2. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
 3. Push to `main` or run **Build and deploy website** from the Actions tab.
 
-The workflow installs Node.js, checks and builds the site, then deploys `dist/`.
+The workflow installs Node.js and the pnpm version pinned in `package.json`, checks and builds the site, then deploys `dist/`.
 Pull requests run the build without deploying.
 The site URL and repository prefix come from GitHub Pages automatically; there is no repository name to hardcode.
 For a custom domain, configure it in GitHub Pages settings and rerun the workflow.
@@ -106,8 +127,8 @@ For a custom domain, configure it in GitHub Pages settings and rerun the workflo
 To check a repository subpath locally:
 
 ```sh
-SITE_URL=https://example.github.io SITE_BASE_PATH=/research-group-website npm run build
-npm run preview -- --base /research-group-website
+SITE_URL=https://example.github.io SITE_BASE_PATH=/research-group-website pnpm build
+pnpm preview --base /research-group-website
 ```
 
 ## License

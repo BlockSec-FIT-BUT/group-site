@@ -1,0 +1,70 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Arrow from '../../components/Arrow.astro';
+import PersonPortrait from '../../components/PersonPortrait.astro';
+import { catalog } from '../../lib/catalog';
+import { withBase } from '../../lib/urls';
+
+export function getStaticPaths() {
+  return catalog.people.map((person) => ({ params: { personId: person.personId }, props: { person } }));
+}
+
+interface Props { person: (typeof catalog.people)[number] }
+const { person } = Astro.props;
+const profileDetails = [
+  { label: 'Group role', value: person.role },
+  ...(person.qualifications ? [{ label: 'Academic titles', value: person.qualifications }] : []),
+  ...(person.position ? [{ label: 'Position', value: person.position }] : []),
+  ...(person.affiliation ? [{ label: 'Affiliation', value: person.affiliation }] : []),
+  ...(person.email ? [{ label: 'Email', value: person.email, href: `mailto:${person.email}` }] : []),
+  ...(person.phone ? [{ label: 'Phone', value: person.phone, href: `tel:${person.phone.replace(/\s/g, '')}` }] : []),
+  ...(person.office ? [{ label: 'Office', value: `${person.office}, FIT BUT, Božetěchova 2, Brno` }] : []),
+  ...(person.identifiers ?? []),
+];
+---
+<Layout title={person.name} description={person.bio} eyebrow={person.role} intro={person.bio}>
+  <div class="grid items-start gap-12 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-16">
+    <aside class="min-w-0" aria-label="Profile details">
+      <div class="max-w-70"><PersonPortrait person={person} /></div>
+      <dl class="mt-8 space-y-6">
+        {profileDetails.map((detail) => <div>
+          <dt class="eyebrow mb-2 text-muted">{detail.label}</dt>
+          <dd class="text-sm leading-relaxed break-words">{'href' in detail ? <a class="underline decoration-line underline-offset-4 hover:text-accent" href={detail.href}>{detail.value}</a> : detail.value}</dd>
+        </div>)}
+      </dl>
+    </aside>
+    <div class="min-w-0 space-y-14">
+      {person.researchInterests && person.researchInterests.length > 0 && <section aria-labelledby="research-interests">
+        <h2 id="research-interests" class="mb-5 text-2xl font-medium tracking-tight">Research interests</h2>
+        <ul class="space-y-3 text-base leading-relaxed text-muted">{person.researchInterests.map((interest) => <li class="flex gap-3"><span class="text-accent" aria-hidden="true">—</span>{interest}</li>)}</ul>
+      </section>}
+      <section id="projects" class="scroll-mt-8" aria-labelledby="projects-heading">
+        <div class="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-5">
+          <h2 id="projects-heading" class="text-2xl font-medium tracking-tight">Projects</h2>
+          <span class="text-sm tabular-nums text-muted">{person.projects.length}</span>
+        </div>
+        {person.projects.length > 0 ? <ul class="space-y-7">
+          {person.projects.map((project) => <li>
+            <h3 class="text-xl font-medium tracking-tight"><a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/projects/#${project.projectId}`)}>{project.title}</a></h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{project.description}</p>
+          </li>)}
+        </ul> : <p class="text-sm leading-relaxed text-muted">No projects listed yet.</p>}
+      </section>
+      <section id="publications" class="scroll-mt-8" aria-labelledby="publications-heading">
+        <div class="mb-6 flex items-baseline justify-between gap-4 border-b border-line pb-5">
+          <h2 id="publications-heading" class="text-2xl font-medium tracking-tight">Publications</h2>
+          <span class="text-sm tabular-nums text-muted">{person.publications.length}</span>
+        </div>
+        {person.publications.length > 0 ? <div class="divide-y divide-line">
+          {person.publications.map((publication) => <article id={publication.publicationId} class="scroll-mt-8 py-7 first:pt-0">
+            <p class="eyebrow mb-3 text-muted"><span class="text-accent">{publication.year}</span>{publication.venue && <> · {publication.venue}</>}</p>
+            <h3 class="text-xl leading-snug font-medium tracking-tight">{publication.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">{publication.authors.map((author, index) => <>{index > 0 && ', '}{author.personId && author.personId !== person.personId ? <a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/people/${author.personId}/`)}>{author.name}</a> : author.name}</>)}</p>
+            {publication.url && <a class="text-link mt-4" href={publication.url}>Read publication <Arrow class="size-4" diagonal /></a>}
+          </article>)}
+        </div> : <p class="text-sm leading-relaxed text-muted">No publications listed yet.</p>}
+      </section>
+    </div>
+  </div>
+  <a class="text-link mt-16 border-t border-line pt-8" href={withBase(`/people/#${person.personId}`)}><Arrow class="size-4 rotate-180" /> All people</a>
+</Layout>

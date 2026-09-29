@@ -1,0 +1,11 @@
+---
+import type { Person } from '../data/people';
+import { withBase } from '../lib/urls';
+
+interface Props { person: Person }
+const { person } = Astro.props;
+const initials = person.name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('');
+---
+<div class="relative aspect-[4/4.4] overflow-hidden rounded-sm bg-panel">
+  {person.photo ? <img class="size-full object-cover" src={withBase(person.photo)} alt={person.name} width="640" height="704" loading="lazy" /> : <div class="flex size-full items-center justify-center" aria-hidden="true"><div class="absolute size-[75%] rounded-full border border-line"></div><div class="absolute size-[55%] rounded-full border border-line"></div><span class="font-editorial text-8xl italic text-muted/70">{initials}</span></div>}
+</div>

@@ -73,6 +73,8 @@ Run `npm test` to check relationship validation and automatic reverse links.
 
 ## GitHub Pages
 
+On GitHub Free, Pages requires a public repository. Private repositories support Pages with GitHub Pro, Team, or Enterprise; see [GitHub's availability requirements](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+
 1. Push this project to a GitHub repository with a `main` branch.
 2. In **Settings → Pages → Build and deployment**, select **GitHub Actions**.
 3. Push to `main` or run **Build and deploy website** from the Actions tab.
@@ -88,3 +90,8 @@ To check a repository subpath locally:
 SITE_URL=https://example.github.io SITE_BASE_PATH=/research-group-website npm run build
 npm run preview -- --base /research-group-website
 ```
+
+## License
+
+The website source code is licensed under the [MIT License](LICENSE).
+Third-party dependencies and linked publications retain their own licenses.

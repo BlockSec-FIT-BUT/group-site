@@ -1,6 +1,7 @@
 export interface Person {
     personId: string;
     name: string;
+    authorAliases?: string[];
     role: string;
     bio: string;
     photo?: string;

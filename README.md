@@ -23,7 +23,7 @@ npm run dev
 | Group name, description, language, navigation | `src/site.config.ts` |
 | Homepage headline and introduction | `src/site.config.ts` (`home`) |
 | Contact text | `src/pages/contact.md` |
-| People, projects, publications | `src/data/` (copy the commented examples) |
+| People, projects, publications | `src/data/` (publication example below) |
 | News | Copy `src/content/news/example.md`, rename it, edit it, and set `draft: false` |
 | Theme colors and fonts | `src/styles/global.css` (`@theme`, local font files) |
 | Layout, spacing, responsive styles | Tailwind classes in `src/pages/` and `src/layouts/` |
@@ -42,34 +42,53 @@ Use `withBase()` from `src/lib/urls.ts` for internal paths in Astro components.
 ### Link people, publications, and projects
 
 Give each person a stable `personId` in `src/data/people.ts`, for example `daniel-rolnik`.
-Publications and projects also need unique `publicationId` and `projectId` values.
+Give each project a unique `projectId` in `src/data/projects.ts`.
 Use lowercase letters, numbers, and hyphens for IDs; keep them unchanged when renaming an entry so existing links keep working.
 
-In `src/data/publications.ts`, list authors in their published order:
+To add a publication, paste one BibTeX entry into `publicationEntries` in `src/data/publications.ts`:
 
 ```ts
-authors: [
-  { name: 'Daniel Rolnik', personId: 'daniel-rolnik' },
-  { name: 'External Author' },
-],
+{
+  bibtex: String.raw`@inproceedings{my-paper-2026,
+    title = {My Paper Title},
+    author = {Rolnik, Daniel and Doe, Jane},
+    booktitle = {Example Conference},
+    year = {2026},
+    doi = {10.1234/example}
+  }`,
+  personIds: ['daniel-rolnik'],
+  projectIds: ['my-project'],
+},
 ```
 
-`name` is the displayed credit and can differ from the person's profile name.
-Omit `personId` for authors without a profile; they remain plain text. Do not use an empty ID.
+**Only `bibtex` is required.** Omit `personIds` and `projectIds` (or use empty arrays) when no links are needed.
+When adding IDs, reference existing people/projects; the example above assumes `daniel-rolnik` and `my-project` already exist.
 
-In `src/data/projects.ts`, list the IDs of the people involved:
+The title, ordered authors, venue, year, and external link are derived at build time; do not duplicate them outside the BibTeX block.
+Each entry must have a citation key, title, author, and four-digit `year` (or a BibLaTeX ISO `date`).
+Venues use `journal` / `journaltitle`, `booktitle`, `publisher`, `institution`, or `school`, in that order.
+A `url` takes precedence over a DOI link. Without either, the paper is shown without an external link.
+Use `String.raw` as shown so LaTeX commands such as `\v{s}` and `\&` reach the parser unchanged.
+Brace protection, quoted fields, Unicode/LaTeX accents, and standalone `@string` definitions in the same block are supported.
+Include one publication per object; references to entries outside the block are not resolved.
 
-```ts
-personIds: ['daniel-rolnik'],
-```
+The citation key becomes the anchor ID: `MyPaper:2026` becomes `mypaper-2026`, and `my-paper-2026` remains unchanged.
+Keep keys stable. Keys that normalize to the same ID are rejected.
 
-Use `personIds: []` if nobody is linked yet. Add people to `people.ts` before referencing them.
+`personIds` links only the selected authors. Matching uses their full names, ignoring case and whitespace; external authors remain plain text.
+If a BibTeX credit uses initials or a different spelling, add that exact displayed name to the person's `authorAliases`, for example `authorAliases: ['I. Homoliak']`.
+Missing or ambiguous author matches fail the build instead of silently linking the wrong person.
+
+`projectIds` assigns the publication to one or more projects. The publication links to those projects, and each project automatically lists its publications, newest first.
+This does not assign every publication author as a project member: maintain a project's own `personIds` list separately for its team.
+A project's optional `url` points to its own homepage or code repository. Omit it when no separate destination is available; its related publications already provide paper links.
+
 Each person's publications and projects appear automatically on the People page; do not maintain a second list on the person.
 Links point to `/people/#<personId>`, `/publications/#<publicationId>`, and `/projects/#<projectId>`.
 The former `/research/` route redirects to `/projects/`.
 
-`npm run build` rejects invalid or duplicate IDs and references to missing people.
-Run `npm test` to check relationship validation and automatic reverse links.
+`npm run build` rejects malformed BibTeX, incomplete required fields, invalid or duplicate IDs, and references to missing people or projects.
+Run `npm test` to check parsing, relationship validation, and automatic reverse links. These tests also run in CI.
 
 ## GitHub Pages
 

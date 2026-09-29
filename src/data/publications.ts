@@ -1,648 +1,423 @@
-export interface PublicationAuthor {
-  name: string;
-  personId?: string;
-}
+import type {PublicationInput} from '../lib/publications.ts';
 
-export interface Publication {
-  publicationId: string;
-  title: string;
-  authors: PublicationAuthor[];
-  venue: string;
-  year: number;
-  url?: string;
-}
-
-// All 27 records from the official group publication list.
-// Author corrections and primary sources are recorded in docs/content-sources.md.
-// Omit personId for authors who are not on the official group team page.
-export const publications: Publication[] = [
-  {
-    "publicationId": "fit-c199851",
-    "title": "Analysing Multidisciplinary Approaches to Fight Large-Scale Digital Influence Operations",
-    "authors": [
-      {
-        "name": "D. Arroyo Guardeño"
-      },
-      {
-        "name": "R. Mata Milla"
-      },
-      {
-        "name": "M. Almeida Ros"
-      },
-      {
-        "name": "N. Lykousas"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "C. Patsakis"
-      },
-      {
-        "name": "F. Casino"
-      }
-    ],
-    "venue": "Proceedings of the 12th International Conference on Information Systems Security and Privacy - Volume 1: ICISSP",
-    "year": 2026,
-    "url": "https://www.fit.vut.cz/research/result/c199851/.en"
-  },
-  {
-    "publicationId": "fit-c212092",
-    "title": "Lecture Notes for the Course: Blockchains and Decentralized Applications",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "Brno University of Technology, Faculty of Information Technology",
-    "year": 2026,
-    "url": "https://www.fit.vut.cz/research/result/c212092/.en"
-  },
-  {
-    "publicationId": "fit-c211657",
-    "title": "Selfish Mining in Multi-attacker Scenarios: An Empirical Evaluation of Nakamoto, Fruitchain, and Strongchain",
-    "authors": [
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Tomáš Hladký"
-      },
-      {
-        "name": "Jakub Kubík"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "Computer Security. ESORICS 2025 International Workshops",
-    "year": 2026,
-    "url": "https://www.fit.vut.cz/research/result/c211657/.en"
-  },
-  {
-    "publicationId": "fit-c211660",
-    "title": "PoS-CoPOR: Proof-of-Stake Consensus Protocol with Native Onion Routing Providing Scalability and DoS-Resistance",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Marek Tamaškovič",
-        "personId": "marek-tamaskovic"
-      },
-      {
-        "name": "Timotej Ponek"
-      },
-      {
-        "name": "Lukáš Hellebrandt"
-      },
-      {
-        "name": "Kamil Malinka"
-      }
-    ],
-    "venue": "2025 7th Conference on Blockchain Research & Applications for Innovative Networks and Services (BRAINS)",
-    "year": 2025,
-    "url": "https://www.fit.vut.cz/research/result/c211660/.en"
-  },
-  {
-    "publicationId": "fit-c201371",
-    "title": "SNARKlet: Efficient Mobile Wallet Synchronization with zk-SNARKs",
-    "authors": [
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Samuel Olekšák",
-        "personId": "samuel-oleksak"
-      },
-      {
-        "name": "Samuel Slávka"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "2025 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)",
-    "year": 2025,
-    "url": "https://www.fit.vut.cz/research/result/c201371/.en"
-  },
-  {
-    "publicationId": "fit-c185121",
-    "title": "Mitigating Undercutting Attacks: Fee-Redistribution Smart Contracts for Transaction-Fee-Based Regime of Blockchains with the Longest Chain Rule",
-    "authors": [
-      {
-        "name": "Rastislav Budinský"
-      },
-      {
-        "name": "Ivana Stančíková",
-        "personId": "ivana-stancikova"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "2023 IEEE International Conference on Blockchain (Blockchain)",
-    "year": 2024,
-    "url": "https://www.fit.vut.cz/research/result/c185121/.en"
-  },
-  {
-    "publicationId": "fit-c193292",
-    "title": "SoK: Cryptocurrency Wallets - A Security Review and Classification based on Authentication Factors",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      }
-    ],
-    "venue": "2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC) - Proceedings",
-    "year": 2024,
-    "url": "https://www.fit.vut.cz/research/result/c193292/.en"
-  },
-  {
-    "publicationId": "fit-c185122",
-    "title": "DAG-Sword: A Simulator for DAG-Oriented Proof-of-Work Blockchains with Realistic Network Topologies",
-    "authors": [
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Tomáš Hladký"
-      },
-      {
-        "name": "Kamil Malinka"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "Proceedings of the 57th Annual Hawaii International Conference on System Sciences",
-    "year": 2024,
-    "url": "https://www.fit.vut.cz/research/result/c185122/.en"
-  },
-  {
-    "publicationId": "fit-c185114",
-    "title": "Detecting and Preventing Credential Misuse in OTP-Based Two and Half Factor Authentication Toward Centralized Services Utilizing Blockchain-Based Identity Management",
-    "authors": [
-      {
-        "name": "Jozef Drga",
-        "personId": "jozef-drga"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Juraj Vančo"
-      },
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Petr Hanáček"
-      },
-      {
-        "name": "Athanasios Vasilakos"
-      }
-    ],
-    "venue": "2023 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)",
-    "year": 2023,
-    "url": "https://www.fit.vut.cz/research/result/c185114/.en"
-  },
-  {
-    "publicationId": "fit-c185109",
-    "title": "BBB-Voting: Self-Tallying End-to-End Verifiable 1-out-of-k Blockchain-Based Boardroom Voting",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Z. Li"
-      },
-      {
-        "name": "P. Szalachowski"
-      }
-    ],
-    "venue": "2023 IEEE International Conference on Blockchain (Blockchain)",
-    "year": 2023,
-    "url": "https://www.fit.vut.cz/research/result/c185109/.en"
-  },
-  {
-    "publicationId": "fit-c185137",
-    "title": "Incentive Attacks on DAG-Based Blockchains with Random Transaction Selection",
-    "authors": [
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Martin Hrubý"
-      },
-      {
-        "name": "Federico M. Benčić"
-      },
-      {
-        "name": "Kamil Malinka"
-      }
-    ],
-    "venue": "IEEE International Conference on Blockchain",
-    "year": 2023,
-    "url": "https://www.fit.vut.cz/research/result/c185137/.en"
-  },
-  {
-    "publicationId": "fit-c185118",
-    "title": "SBvote: Scalable Self-Tallying Blockchain-Based Voting",
-    "authors": [
-      {
-        "name": "Ivana Stančíková",
-        "personId": "ivana-stancikova"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "SAC '23: Proceedings of the 38th ACM/SIGAPP Symposium on Applied Computing",
-    "year": 2023,
-    "url": "https://www.fit.vut.cz/research/result/c185118/.en"
-  },
-  {
-    "publicationId": "fit-c185110",
-    "title": "Always on Voting: A Framework for Repetitive Voting on the Blockchain",
-    "authors": [
-      {
-        "name": "S. Venugopalan"
-      },
-      {
-        "name": "Ivana Stančíková",
-        "personId": "ivana-stancikova"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "IEEE Transactions on Emerging Topics in Computing",
-    "year": 2023,
-    "url": "https://www.fit.vut.cz/research/result/c185110/.en"
-  },
-  {
-    "publicationId": "fit-c169617",
-    "title": "HADES-IoT: A practical host-based anomaly detection system for IoT devices (Extended Version)",
-    "authors": [
-      {
-        "name": "D. Breitenbacher"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Y. Aung"
-      },
-      {
-        "name": "Y. Elovici"
-      },
-      {
-        "name": "N. Tippenhauer"
-      }
-    ],
-    "venue": "IEEE Internet of Things Journal",
-    "year": 2022,
-    "url": "https://www.fit.vut.cz/research/result/c169617/.en"
-  },
-  {
-    "publicationId": "fit-c185144",
-    "title": "The Security Reference Architecture for Blockchains: Toward a Standardized Model for Studying Vulnerabilities, Threats, and Defenses",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      }
-    ],
-    "venue": "Sborník příspevků z 54. konference EurOpen.CZ, 28.5.-1.6.2022",
-    "year": 2022,
-    "url": "https://www.fit.vut.cz/research/result/c185144/.en"
-  },
-  {
-    "publicationId": "fit-c179406",
-    "title": "Simulations of DAG-based Blockchain Protocols and Attacks on the PHANTOM Protocol via Transaction Selection Strategies",
-    "authors": [
-      {
-        "name": "Martin Perešíni",
-        "personId": "martin-peresini"
-      },
-      {
-        "name": "Kamil Malinka"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Federico M. Benčić"
-      },
-      {
-        "name": "Tomáš Hladký"
-      }
-    ],
-    "venue": "Sborník příspevků z 54. konference EurOpen.CZ, 28.5.-1.6.2022",
-    "year": 2022,
-    "url": "https://www.fit.vut.cz/research/result/c179406/.en"
-  },
-  {
-    "publicationId": "fit-c175771",
-    "title": "Intercepting Hail Hydra: Real-Time Detection of Algorithmically Generated Domains",
-    "authors": [
-      {
-        "name": "F. Casino"
-      },
-      {
-        "name": "N. Lykousas"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "C. Patsakis"
-      },
-      {
-        "name": "J. Hernandez-Castro"
-      }
-    ],
-    "venue": "Journal of Network and Computer Applications",
-    "year": 2021,
-    "url": "https://www.fit.vut.cz/research/result/c175771/.en"
-  },
-  {
-    "publicationId": "fit-c168173",
-    "title": "The Security Reference Architecture for Blockchains: Toward a Standardized Model for Studying Vulnerabilities, Threats, and Defenses",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "S. Venugopalan"
-      },
-      {
-        "name": "D. Reijsbergen"
-      },
-      {
-        "name": "Q. Hum"
-      },
-      {
-        "name": "R. Schumi"
-      },
-      {
-        "name": "P. Szalachowski"
-      }
-    ],
-    "venue": "IEEE Communications Surveys and Tutorials",
-    "year": 2021,
-    "url": "https://www.fit.vut.cz/research/result/c168173/.en"
-  },
-  {
-    "publicationId": "fit-c168117",
-    "title": "SmartOTPs: An Air-Gapped 2-Factor Authentication for Smart-Contract Wallets",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Dominik Breitenbacher"
-      },
-      {
-        "name": "Ondrej Hujnak"
-      },
-      {
-        "name": "Pieter Hartel"
-      },
-      {
-        "name": "Alexander Binder"
-      },
-      {
-        "name": "Pawel Szalachowski"
-      }
-    ],
-    "venue": "Proceedings of the 2nd ACM Conference on Advances in Financial Technologies",
-    "year": 2020,
-    "url": "https://www.fit.vut.cz/research/result/c168117/.en"
-  },
-  {
-    "publicationId": "fit-c168144",
-    "title": "CoinWatch: A Clone-Based Approach for Detecting Vulnerabilities in Cryptocurrencies",
-    "authors": [
-      {
-        "name": "Q. Hum"
-      },
-      {
-        "name": "W. Tan"
-      },
-      {
-        "name": "S. Tey"
-      },
-      {
-        "name": "L. Lenus"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Y. Lin"
-      },
-      {
-        "name": "J. Sun"
-      }
-    ],
-    "venue": "3rd IEEE INTERNATIONAL CONFERENCE ON BLOCKCHAIN (BLOCKCHAIN 2020)",
-    "year": 2020,
-    "url": "https://www.fit.vut.cz/research/result/c168144/.en"
-  },
-  {
-    "publicationId": "fit-c162294",
-    "title": "An Empirical Study into the Success of Listed Smart Contracts in Ethereum",
-    "authors": [
-      {
-        "name": "P. Hartel"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "D. Reijsbergen"
-      }
-    ],
-    "venue": "IEEE Access",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c162294/.en"
-  },
-  {
-    "publicationId": "fit-c162597",
-    "title": "Increasing Trust in Tor Node List Using Blockchain",
-    "authors": [
-      {
-        "name": "Lukáš Hellebrandt"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Kamil Malinka"
-      },
-      {
-        "name": "Petr Hanáček"
-      }
-    ],
-    "venue": "2019 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c162597/.en"
-  },
-  {
-    "publicationId": "fit-c168501",
-    "title": "A Security Reference Architecture for Blockchains",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Sarad Venugopalan"
-      },
-      {
-        "name": "Qingze Hum"
-      },
-      {
-        "name": "Pawel Szalachowski"
-      }
-    ],
-    "venue": "2019 2nd IEEE International Conference on Blockchain",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c168501/.en"
-  },
-  {
-    "publicationId": "fit-c168504",
-    "title": "Adversarial Attacks on Remote User Authentication Using Behavioural Mouse Dynamics",
-    "authors": [
-      {
-        "name": "Yi Xiang Marcus Tan"
-      },
-      {
-        "name": "Alfonso Iacovazzi"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Yuval Elovici"
-      },
-      {
-        "name": "Alexander Binder"
-      }
-    ],
-    "venue": "2019 International Joint Conference on Neural Networks (IJCNN)",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c168504/.en"
-  },
-  {
-    "publicationId": "fit-c168500",
-    "title": "HADES-IoT: A practical host-based anomaly detection system for IoT devices",
-    "authors": [
-      {
-        "name": "Dominik Breitenbacher"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Yan Lin Aung"
-      },
-      {
-        "name": "Nils Ole Tippenhauer"
-      },
-      {
-        "name": "Yuval Elovici"
-      }
-    ],
-    "venue": "Asia CCS '19: Proceedings of the 2019 ACM Asia Conference on Computer and Communications Security",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c168500/.en"
-  },
-  {
-    "publicationId": "fit-c162600",
-    "title": "StrongChain: Transparent and Collaborative Proof-of-Work Consensus",
-    "authors": [
-      {
-        "name": "Pawel Szalachowski"
-      },
-      {
-        "name": "Daniël Reijsbergen"
-      },
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "Siwei Sun"
-      }
-    ],
-    "venue": "Proceedings of The 28th USENIX Security Symposium",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c162600/.en"
-  },
-  {
-    "publicationId": "fit-c156851",
-    "title": "Insight Into Insiders and IT: A Survey of Insider Threat Taxonomies, Analysis, Modeling, and Countermeasures",
-    "authors": [
-      {
-        "name": "Ivan Homoliak",
-        "personId": "ivan-homoliak"
-      },
-      {
-        "name": "F. Toffalini"
-      },
-      {
-        "name": "J. Guarnizo"
-      },
-      {
-        "name": "Y. Elovici"
-      },
-      {
-        "name": "M. Ochoa"
-      }
-    ],
-    "venue": "ACM Computing Surveys",
-    "year": 2019,
-    "url": "https://www.fit.vut.cz/research/result/c156851/.en"
-  }
+// Paste one standalone BibTeX entry per object. Only bibtex is required.
+// Add personIds and projectIds to create links; see README.md for an example.
+// Citation keys become stable URL anchors. Keep existing keys unchanged.
+// Publisher / institutional BibTeX exports, audited 2026-09-29.
+// Sources and documented corrections: docs/content-sources.md.
+export const publicationEntries: PublicationInput[] = [
+    {
+        bibtex: String.raw`@conference{fit-c199851,
+  author={David Arroyo and Rafael Mata Milla and Marc Almeida Ros and Nikolaos Lykousas and Ivan Homoliak and Constantinos Patsakis and Fran Casino},
+  title={Analysing Multidisciplinary Approaches to Fight Large-Scale Digital Influence Operations},
+  booktitle={Proceedings of the 12th International Conference on Information Systems Security and Privacy - Volume 1: ICISSP},
+  year={2026},
+  pages = {161--168},
+  publisher={SciTePress},
+  organization={INSTICC},
+  doi={10.5220/0014291400004061},
+  isbn={978-989-758-800-6},
+  issn={2184-4356},
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@book{fit-c212092,
+  title={Lecture Notes for the Course: Blockchains and Decentralized Applications},
+  ISBN={9788021463943},
+  url={https://doi.org/10.13164/9788021463943},
+  DOI={10.13164/9788021463943},
+  publisher={Brno University of Technology, Faculty of Information Technology},
+  author={Homoliak, Ivan},
+  year={2026},
+  month = jan
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inbook{fit-c211657,
+  title={Selfish Mining in Multi-attacker Scenarios: An Empirical Evaluation of Nakamoto, Fruitchain, and Strongchain},
+  ISBN={9783032160898},
+  ISSN={1611-3349},
+  url={https://doi.org/10.1007/978-3-032-16089-8_21},
+  DOI={10.1007/978-3-032-16089-8_21},
+  booktitle={Computer Security. ESORICS 2025 International Workshops},
+  publisher={Springer Nature Switzerland},
+  author={Perešíni, Martin and Hladký, Tomáš and Kubík, Jakub and Homoliak, Ivan},
+  year={2026},
+  pages = {328--343}
+}`,
+        personIds: ["martin-peresini", "ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c211660,
+  title={PoS-CoPOR: Proof-of-Stake Consensus Protocol with Native Onion Routing Providing Scalability and DoS-Resistance},
+  url={https://doi.org/10.1109/BRAINS67003.2025.11302912},
+  DOI={10.1109/brains67003.2025.11302912},
+  booktitle={2025 7th Conference on Blockchain Research \& Applications for Innovative Networks and Services (BRAINS)},
+  publisher={IEEE},
+  author={Homoliak, Ivan and Perešíni, Martin and Tamaškovič, Marek and Ponek, Timotej and Hellebrandt, Lukáš and Malinka, Kamil},
+  year={2025},
+  month = nov,
+  pages = {1--9}
+}`,
+        personIds: ["ivan-homoliak", "martin-peresini", "marek-tamaskovic"],
+        projectIds: ["pos-copor"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c201371,
+  title={SNARKlet: Efficient Mobile Wallet Synchronization with zk-SNARKs},
+  url={https://doi.org/10.1109/icbc64466.2025.11185067},
+  DOI={10.1109/icbc64466.2025.11185067},
+  booktitle={2025 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)},
+  publisher={IEEE},
+  author={Perešíni, Martin and Olekšák, Samuel and Slávka, Samuel and Homoliak, Ivan},
+  year={2025},
+  month = jun,
+  pages = {1--7}
+}`,
+        personIds: ["martin-peresini", "samuel-oleksak", "ivan-homoliak"],
+        projectIds: ["snarklet"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185121,
+  title={Mitigating Undercutting Attacks: Fee-Redistribution Smart Contracts for Transaction-Fee-Based Regime of Blockchains with the Longest Chain Rule},
+  url={https://doi.org/10.1109/Blockchain60715.2023.00014},
+  DOI={10.1109/blockchain60715.2023.00014},
+  booktitle={2023 IEEE International Conference on Blockchain (Blockchain)},
+  publisher={IEEE},
+  author={Budinsky, Rastislav and Stančíková, Ivana and Homoliak, Ivan},
+  year={2023},
+  month = dec,
+  pages = {25--32}
+}`,
+        personIds: ["ivana-stancikova", "ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c193292,
+  title={SoK: Cryptocurrency Wallets – A Security Review and Classification based on Authentication Factors},
+  url={https://doi.org/10.1109/ICBC59979.2024.10634439},
+  DOI={10.1109/icbc59979.2024.10634439},
+  booktitle={2024 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)},
+  publisher={IEEE},
+  author={Homoliak, Ivan and Perešíni, Martin},
+  year={2024},
+  month = may,
+  pages = {1--8}
+}`,
+        personIds: ["ivan-homoliak", "martin-peresini"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185122,
+  series={HICSS},
+  title={DAG-Sword: A Simulator of Large-Scale Network Topologies for DAG-Oriented Proof-of-Work Blockchains},
+  ISSN={2572-6862},
+  url={https://doi.org/10.24251/HICSS.2024.716},
+  DOI={10.24251/hicss.2024.716},
+  booktitle={Proceedings of the 57th Hawaii International Conference on System Sciences},
+  publisher={Hawaii International Conference on System Sciences},
+  author={Perešíni, Martin and Hladký, Tomáš and Malinka, Kamil and Homoliak, Ivan},
+  year={2024},
+  collection={HICSS},
+  isbn={978-0-9981331-7-1},
+  pages={5960--5969}
+}`,
+        personIds: ["martin-peresini", "ivan-homoliak"],
+        projectIds: ["dag-sword"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185114,
+  title={Detecting and Preventing Credential Misuse in OTP-Based Two and Half Factor Authentication Toward Centralized Services Utilizing Blockchain-Based Identity Management},
+  url={https://doi.org/10.1109/ICBC56567.2023.10174997},
+  DOI={10.1109/icbc56567.2023.10174997},
+  booktitle={2023 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)},
+  publisher={IEEE},
+  author={Drga, Jozef and Homoliak, Ivan and Vanco, Juraj and Vasilakos, Athanasios and Perešíni, Martin and Hanacek, Petr},
+  year={2023},
+  month = may,
+  pages = {1--4}
+}`,
+        personIds: ["jozef-drga", "ivan-homoliak", "martin-peresini"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185109,
+  title={BBB-Voting: Self-Tallying End-to-End Verifiable 1-out-of-k Blockchain-Based Boardroom Voting},
+  url={https://doi.org/10.1109/Blockchain60715.2023.00054},
+  DOI={10.1109/blockchain60715.2023.00054},
+  booktitle={2023 IEEE International Conference on Blockchain (Blockchain)},
+  publisher={IEEE},
+  author={Homoliak, Ivan and Li, Zengpeng and Szalachowski, Pawel},
+  year={2023},
+  month = dec,
+  pages = {297--306}
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["bbb-voting"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185137,
+  title={Incentive Attacks on DAG-Based Blockchains with Random Transaction Selection},
+  url={https://doi.org/10.1109/Blockchain60715.2023.00011},
+  DOI={10.1109/blockchain60715.2023.00011},
+  booktitle={2023 IEEE International Conference on Blockchain (Blockchain)},
+  publisher={IEEE},
+  author={Perešíni, Martin and Benčić, Federico Matteo and Hrubý, Martin and Malinka, Kamil and Homoliak, Ivan},
+  year={2023},
+  month = dec,
+  pages = {1--8}
+}`,
+        personIds: ["martin-peresini", "ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185118,
+  series={SAC ’23},
+  title={SBvote: Scalable Self-Tallying Blockchain-Based Voting},
+  url={https://doi.org/10.1145/3555776.3578603},
+  DOI={10.1145/3555776.3578603},
+  booktitle={Proceedings of the 38th ACM/SIGAPP Symposium on Applied Computing},
+  publisher={ACM},
+  author={Stančíková, Ivana and Homoliak, Ivan},
+  year={2023},
+  month = mar,
+  pages = {203--211},
+  collection={SAC ’23}
+}`,
+        personIds: ["ivana-stancikova", "ivan-homoliak"],
+        projectIds: ["sbvote"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c185110,
+  title={Always on Voting: A Framework for Repetitive Voting on the Blockchain},
+  volume={11},
+  ISSN={2376-4562},
+  url={https://doi.org/10.1109/TETC.2023.3315748},
+  DOI={10.1109/tetc.2023.3315748},
+  number={4},
+  journal={IEEE Transactions on Emerging Topics in Computing},
+  publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+  author={Venugopalan, Sarad and Stančíková, Ivana and Homoliak, Ivan},
+  year={2023},
+  month = oct,
+  pages = {1082--1092}
+}`,
+        personIds: ["ivana-stancikova", "ivan-homoliak"],
+        projectIds: ["always-on-voting"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c169617,
+  title={HADES-IoT: A Practical and Effective Host-Based Anomaly Detection System for IoT Devices (Extended Version)},
+  volume={9},
+  ISSN={2372-2541},
+  url={https://doi.org/10.1109/JIOT.2021.3135789},
+  DOI={10.1109/jiot.2021.3135789},
+  number={12},
+  journal={IEEE Internet of Things Journal},
+  publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+  author={Breitenbacher, Dominik and Homoliak, Ivan and Aung, Yan Lin and Elovici, Yuval and Tippenhauer, Nils Ole},
+  year={2022},
+  month = jun,
+  pages = {9640--9658}
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["hades-iot"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c185144,
+  author="Ivan {Homoliak}",
+  title="The Security Reference Architecture for Blockchains: Toward a Standardized Model for Studying Vulnerabilities, Threats, and Defenses",
+  booktitle="Sborník příspevků z 54. konference EurOpen.CZ, 28.5.-1.6.2022",
+  year="2022",
+  pages="185--210",
+  publisher="Czech Open Systems User's Group",
+  address="Radešín",
+  isbn="978-80-86583-34-1",
+  url="https://europen.cz/Anot/54-1/sbornik-54.pdf"
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c179406,
+  author="Martin {Perešíni} and Ivan {Homoliak} and Kamil {Malinka} and Federico Matteo {Benčić} and Tomáš {Hladký}",
+  title="Simulations of DAG-based Blockchain Protocols and Attacks on the PHANTOM Protocol via Transaction Selection Strategies",
+  booktitle="Sborník příspevků z 54. konference EurOpen.CZ, 28.5.-1.6.2022",
+  year="2022",
+  pages="173--184",
+  publisher="Czech Open Systems User's Group",
+  address="Radešín",
+  isbn="978-80-86583-34-1",
+  url="https://europen.cz/Anot/54-1/sbornik-54.pdf"
+}`,
+        personIds: ["martin-peresini", "ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c175771,
+  title={Intercepting Hail Hydra: Real-time detection of Algorithmically Generated Domains},
+  volume={190},
+  ISSN={1084-8045},
+  url={https://doi.org/10.1016/j.jnca.2021.103135},
+  DOI={10.1016/j.jnca.2021.103135},
+  journal={Journal of Network and Computer Applications},
+  publisher={Elsevier BV},
+  author={Casino, Fran and Lykousas, Nikolaos and Homoliak, Ivan and Patsakis, Constantinos and Hernandez-Castro, Julio},
+  year={2021},
+  month = sep,
+  pages = {103135}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c168173,
+  title={The Security Reference Architecture for Blockchains: Toward a Standardized Model for Studying Vulnerabilities, Threats, and Defenses},
+  volume={23},
+  ISSN={2373-745X},
+  url={https://doi.org/10.1109/COMST.2020.3033665},
+  DOI={10.1109/comst.2020.3033665},
+  number={1},
+  journal={IEEE Communications Surveys \& Tutorials},
+  publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+  author={Homoliak, Ivan and Venugopalan, Sarad and Reijsbergen, Daniel and Hum, Qingze and Schumi, Richard and Szalachowski, Pawel},
+  year={2021},
+  pages = {341--390}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c168117,
+  series={AFT ’20},
+  title={SmartOTPs: An Air-Gapped 2-Factor Authentication for Smart-Contract Wallets},
+  url={https://doi.org/10.1145/3419614.3423257},
+  DOI={10.1145/3419614.3423257},
+  booktitle={Proceedings of the 2nd ACM Conference on Advances in Financial Technologies},
+  publisher={ACM},
+  author={Homoliak, Ivan and Breitenbacher, Dominik and Hujnak, Ondrej and Hartel, Pieter and Binder, Alexander and Szalachowski, Pawel},
+  year={2020},
+  month = oct,
+  pages = {145--162},
+  collection={AFT ’20}
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["smartotps"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c168144,
+  title={CoinWatch: A Clone-Based Approach For Detecting Vulnerabilities in Cryptocurrencies},
+  url={https://doi.org/10.1109/Blockchain50366.2020.00011},
+  DOI={10.1109/blockchain50366.2020.00011},
+  booktitle={2020 IEEE International Conference on Blockchain (Blockchain)},
+  publisher={IEEE},
+  author={Hum, Qingze and Tan, Wei Jin and Tey, Shi Ying and Lenus, Latasha and Homoliak, Ivan and Lin, Yun and Sun, Jun},
+  year={2020},
+  month = nov,
+  pages = {17--25}
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["coinwatch"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c162294,
+  title={An Empirical Study Into the Success of Listed Smart Contracts in Ethereum},
+  volume={7},
+  ISSN={2169-3536},
+  url={https://doi.org/10.1109/ACCESS.2019.2957284},
+  DOI={10.1109/access.2019.2957284},
+  journal={IEEE Access},
+  publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+  author={Hartel, Pieter and Homoliak, Ivan and Reijsbergen, Daniel},
+  year={2019},
+  pages = {177539--177555}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c162597,
+  title={Increasing Trust in Tor Node List Using Blockchain},
+  url={https://doi.org/10.1109/BLOC.2019.8751340},
+  DOI={10.1109/bloc.2019.8751340},
+  booktitle={2019 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)},
+  publisher={IEEE},
+  author={Hellebrandt, Lukas and Homoliak, Ivan and Malinka, Kamil and Hanacek, Petr},
+  year={2019},
+  month = may,
+  pages = {29--32}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c168501,
+  title={A Security Reference Architecture for Blockchains},
+  url={https://doi.org/10.1109/Blockchain.2019.00060},
+  DOI={10.1109/blockchain.2019.00060},
+  booktitle={2019 IEEE International Conference on Blockchain (Blockchain)},
+  publisher={IEEE},
+  author={Homoliak, Ivan and Venugopalan, Sarad and Hum, Qingze and Szalachowski, Pawel},
+  year={2019},
+  month = jul,
+  pages = {390--397}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c168504,
+  title={Adversarial Attacks on Remote User Authentication Using Behavioural Mouse Dynamics},
+  url={https://doi.org/10.1109/IJCNN.2019.8852414},
+  DOI={10.1109/ijcnn.2019.8852414},
+  booktitle={2019 International Joint Conference on Neural Networks (IJCNN)},
+  publisher={IEEE},
+  author={Marcus Tan, Yi Xiang and Iacovazzi, Alfonso and Homoliak, Ivan and Elovici, Yuval and Binder, Alexander},
+  year={2019},
+  month = jul,
+  pages = {1--10}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c168500,
+  series={Asia CCS ’19},
+  title={HADES-IoT: A Practical Host-Based Anomaly Detection System for IoT Devices},
+  url={https://doi.org/10.1145/3321705.3329847},
+  DOI={10.1145/3321705.3329847},
+  booktitle={Proceedings of the 2019 ACM Asia Conference on Computer and Communications Security},
+  publisher={ACM},
+  author={Breitenbacher, Dominik and Homoliak, Ivan and Aung, Yan Lin and Tippenhauer, Nils Ole and Elovici, Yuval},
+  year={2019},
+  month = jul,
+  pages = {479--484},
+  collection={Asia CCS ’19}
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["hades-iot"],
+    },
+    {
+        bibtex: String.raw`@inproceedings{fit-c162600,
+  author = {Pawel Szalachowski and Dani{\"e}l Reijsbergen and Ivan Homoliak and Siwei Sun},
+  title = {{StrongChain}: Transparent and Collaborative {Proof-of-Work} Consensus},
+  booktitle = {28th USENIX Security Symposium (USENIX Security 19)},
+  year = {2019},
+  isbn = {978-1-939133-06-9},
+  address = {Santa Clara, CA},
+  pages = {819--836},
+  url = {https://www.usenix.org/conference/usenixsecurity19/presentation/szalachowski},
+  publisher = {USENIX Association},
+  month = aug
+}`,
+        personIds: ["ivan-homoliak"],
+        projectIds: ["strongchain"],
+    },
+    {
+        bibtex: String.raw`@article{fit-c156851,
+  title={Insight Into Insiders and IT: A Survey of Insider Threat Taxonomies, Analysis, Modeling, and Countermeasures},
+  volume={52},
+  ISSN={1557-7341},
+  url={https://doi.org/10.1145/3303771},
+  DOI={10.1145/3303771},
+  number={2},
+  journal={ACM Computing Surveys},
+  publisher={Association for Computing Machinery (ACM)},
+  author={Homoliak, Ivan and Toffalini, Flavio and Guarnizo, Juan and Elovici, Yuval and Ochoa, Martín},
+  year={2019},
+  month = apr,
+  pages = {1--40}
+}`,
+        personIds: ["ivan-homoliak"],
+    },
 ];

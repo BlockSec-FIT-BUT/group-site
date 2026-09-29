@@ -27,6 +27,7 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
+      - run: npm test
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         id: pages

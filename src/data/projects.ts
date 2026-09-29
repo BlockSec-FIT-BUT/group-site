@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   description: string;
   personIds: string[];
+  // Optional project homepage or repository; related papers come from projectIds.
   url?: string;
   image?: string;
 }
@@ -20,8 +21,7 @@ export const projects: Project[] = [
       "ivan-homoliak",
       "martin-peresini",
       "marek-tamaskovic"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c211660/.en"
+    ]
   },
   {
     "projectId": "snarklet",
@@ -31,8 +31,7 @@ export const projects: Project[] = [
       "martin-peresini",
       "samuel-oleksak",
       "ivan-homoliak"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c201371/.en"
+    ]
   },
   {
     "projectId": "dag-sword",
@@ -42,7 +41,7 @@ export const projects: Project[] = [
       "martin-peresini",
       "ivan-homoliak"
     ],
-    "url": "https://www.fit.vut.cz/research/result/c185122/.en"
+    "url": "https://github.com/Tem12/DAG-simulator"
   },
   {
     "projectId": "bbb-voting",
@@ -51,7 +50,7 @@ export const projects: Project[] = [
     "personIds": [
       "ivan-homoliak"
     ],
-    "url": "https://www.fit.vut.cz/research/result/c185109/.en"
+    "url": "https://github.com/ivan-homoliak-sutd/BBB-Voting"
   },
   {
     "projectId": "sbvote",
@@ -60,8 +59,7 @@ export const projects: Project[] = [
     "personIds": [
       "ivana-stancikova",
       "ivan-homoliak"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c185118/.en"
+    ]
   },
   {
     "projectId": "always-on-voting",
@@ -70,8 +68,7 @@ export const projects: Project[] = [
     "personIds": [
       "ivana-stancikova",
       "ivan-homoliak"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c185110/.en"
+    ]
   },
   {
     "projectId": "hades-iot",
@@ -79,8 +76,7 @@ export const projects: Project[] = [
     "description": "Host-based anomaly detection for Linux IoT devices, designed to detect malicious activity with low resource overhead and resistance to tampering.",
     "personIds": [
       "ivan-homoliak"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c169617/.en"
+    ]
   },
   {
     "projectId": "smartotps",
@@ -89,7 +85,7 @@ export const projects: Project[] = [
     "personIds": [
       "ivan-homoliak"
     ],
-    "url": "https://www.fit.vut.cz/research/result/c168117/.en"
+    "url": "https://github.com/ivan-homoliak-sutd/SmartOTPs"
   },
   {
     "projectId": "coinwatch",
@@ -97,8 +93,7 @@ export const projects: Project[] = [
     "description": "A vulnerability analysis tool that combines code evolution and clone detection to find cryptocurrency projects affected by a known vulnerability.",
     "personIds": [
       "ivan-homoliak"
-    ],
-    "url": "https://www.fit.vut.cz/research/result/c168144/.en"
+    ]
   },
   {
     "projectId": "strongchain",
@@ -107,6 +102,6 @@ export const projects: Project[] = [
     "personIds": [
       "ivan-homoliak"
     ],
-    "url": "https://www.fit.vut.cz/research/result/c162600/.en"
+    "url": "https://github.com/ivan-homoliak-sutd/strongchain-demo"
   }
 ];

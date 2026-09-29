@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createCatalog } from '../src/lib/catalog.ts';
 import type { Person } from '../src/data/people.ts';
-import type { Publication } from '../src/data/publications.ts';
+import type { Publication } from '../src/lib/publications.ts';
 import type { Project } from '../src/data/projects.ts';
 
 const people: Person[] = [
@@ -59,4 +59,16 @@ test('rejects empty and unsafe anchor IDs', () => {
   assert.throws(() => createCatalog([{ ...people[0], personId: '' }], [], []), /Invalid person ID/);
   assert.throws(() => createCatalog([], [{ ...publications[0], publicationId: 'two words' }], []), /Invalid publication ID/);
   assert.throws(() => createCatalog([], [], [{ ...projects[0], projectId: '#project' }]), /Invalid project ID/);
+});
+
+test('links publications and projects in both directions, once each, newest first', () => {
+  const papers = publications.map((paper) => ({ ...paper, projectIds: ['shared', 'shared'] }));
+  const catalog = createCatalog(people, papers, projects);
+  assert.deepEqual(catalog.projects[0].publications.map((paper) => paper.publicationId), ['newer', 'older']);
+  assert.deepEqual(catalog.publications[0].projects, projects);
+  assert.deepEqual(catalog.publications[1].projects, projects);
+});
+
+test('rejects a publication pointing to a missing project', () => {
+  assert.throws(() => createCatalog(people, [{ ...publications[0], projectIds: ['missing'] }], projects), /Publication "older" references unknown project ID "missing"/);
 });

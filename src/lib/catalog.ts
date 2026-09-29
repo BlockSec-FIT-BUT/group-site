@@ -1,5 +1,6 @@
 import { people, type Person } from '../data/people.ts';
-import { publications, type Publication } from '../data/publications.ts';
+import { publicationEntries } from '../data/publications.ts';
+import { parsePublications, type Publication } from './publications.ts';
 import { projects, type Project } from '../data/projects.ts';
 
 // Validate once at build time so typos cannot silently produce broken links.
@@ -19,7 +20,7 @@ export function createCatalog(people: Person[], publications: Publication[], pro
 
   const peopleById = indexById(people, (person) => person.personId, 'person');
   indexById(publications, (publication) => publication.publicationId, 'publication');
-  indexById(projects, (project) => project.projectId, 'project');
+  const projectsById = indexById(projects, (project) => project.projectId, 'project');
 
   function getPerson(personId: string, context: string): Person {
     const person = peopleById.get(personId);
@@ -29,9 +30,10 @@ export function createCatalog(people: Person[], publications: Publication[], pro
 
   const publicationsByPerson = new Map(people.map((person) => [person.personId, [] as Publication[]]));
   const projectsByPerson = new Map(people.map((person) => [person.personId, [] as Project[]]));
+  const publicationsByProject = new Map(projects.map((project) => [project.projectId, [] as Publication[]]));
   const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
 
-  for (const publication of sortedPublications) {
+  const linkedPublications = sortedPublications.map((publication) => {
     const linkedPeople = new Set<string>();
     for (const author of publication.authors) {
       if (author.personId === undefined) continue;
@@ -39,7 +41,14 @@ export function createCatalog(people: Person[], publications: Publication[], pro
       linkedPeople.add(author.personId);
     }
     for (const personId of linkedPeople) publicationsByPerson.get(personId)!.push(publication);
-  }
+    const relatedProjects = [...new Set(publication.projectIds ?? [])].map((projectId) => {
+      const project = projectsById.get(projectId);
+      if (!project) throw new Error(`Publication "${publication.publicationId}" references unknown project ID "${projectId}".`);
+      publicationsByProject.get(projectId)!.push(publication);
+      return project;
+    });
+    return { ...publication, projects: relatedProjects };
+  });
 
   const linkedProjects = projects.map((project) => {
     const members = [...new Set(project.personIds)].map((personId) => {
@@ -47,7 +56,7 @@ export function createCatalog(people: Person[], publications: Publication[], pro
       projectsByPerson.get(personId)!.push(project);
       return person;
     });
-    return { ...project, members };
+    return { ...project, members, publications: publicationsByProject.get(project.projectId)! };
   });
 
   return {
@@ -56,9 +65,9 @@ export function createCatalog(people: Person[], publications: Publication[], pro
       publications: publicationsByPerson.get(person.personId)!,
       projects: projectsByPerson.get(person.personId)!,
     })),
-    publications: sortedPublications,
+    publications: linkedPublications,
     projects: linkedProjects,
   };
 }
 
-export const catalog = createCatalog(people, publications, projects);
+export const catalog = createCatalog(people, parsePublications(publicationEntries, people), projects);

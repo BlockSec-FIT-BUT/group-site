@@ -1,0 +1,94 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import manropeFont from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
+import editorialFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
+import { site } from '../site.config';
+import { withBase } from '../lib/urls';
+import Prose from '../components/Prose.astro';
+import Arrow from '../components/Arrow.astro';
+import Mark from '../components/Mark.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+  intro?: string;
+  home?: boolean;
+  noindex?: boolean;
+  frontmatter?: { title?: string; description?: string; eyebrow?: string; intro?: string };
+}
+const { home = false } = Astro.props;
+const title = Astro.props.title ?? Astro.props.frontmatter?.title;
+const description = Astro.props.description ?? Astro.props.frontmatter?.description ?? site.description;
+const eyebrow = Astro.props.eyebrow ?? Astro.props.frontmatter?.eyebrow ?? site.title;
+const intro = Astro.props.intro ?? Astro.props.frontmatter?.intro;
+const canonical = Astro.site && !Astro.props.noindex ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const navigation = site.navigation.map((item) => {
+  const href = withBase(item.url);
+  return { ...item, href, active: Astro.url.pathname === href || (item.url !== '/' && Astro.url.pathname.startsWith(href)) };
+});
+---
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafaf7" />
+    <link rel="preload" href={manropeFont} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={editorialFont} as="font" type="font/woff2" crossorigin="anonymous" />
+    <ClientRouter fallback="swap" />
+    <title>{title ? `${title} · ${site.title}` : site.title}</title>
+    <meta name="description" content={description} />
+    {Astro.props.noindex && <meta name="robots" content="noindex" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-6 focus:z-50 focus:bg-surface focus:p-4" href="#main">Skip to content</a>
+    <header class="relative z-20 shrink-0 border-b border-line">
+      <div class="page-width flex min-h-24 items-center justify-between gap-8">
+        <a class="flex max-w-70 items-center gap-3 text-[17px] leading-tight font-bold tracking-[-0.04em]" href={withBase('/')} aria-label={`${site.title} home`}>
+          <Mark class="size-8 shrink-0 text-accent" /><span>{site.title}</span>
+        </a>
+        <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+          {navigation.map((item) => (
+            <a class:list={[
+              'relative py-3 text-[13px] font-semibold transition-colors',
+              item.url === '/contact/' ? 'ml-3 rounded-full bg-ink px-5 text-white hover:bg-accent' : 'text-muted hover:text-ink after:absolute after:right-0 after:bottom-1 after:left-0 after:h-px after:origin-left after:bg-accent after:transition-transform',
+              item.url !== '/contact/' && (item.active ? 'text-ink after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'),
+            ]} href={item.href} aria-current={item.active ? 'page' : undefined}>{item.title}</a>
+          ))}
+        </nav>
+        <details class="group lg:hidden">
+          <summary class="flex min-h-11 list-none items-center gap-3 text-sm font-semibold">Menu <span class="text-xl font-normal transition-transform group-open:rotate-45" aria-hidden="true">+</span></summary>
+          <nav class="absolute top-full right-0 left-0 border-b border-line bg-surface px-6 py-5 shadow-lg" aria-label="Mobile navigation">
+            {navigation.map((item) => <a class="flex min-h-12 items-center justify-between border-b border-line/60 text-base text-muted last:border-0 hover:text-accent aria-[current=page]:text-accent" href={item.href} aria-current={item.active ? 'page' : undefined}>{item.title}<Arrow class="size-4" /></a>)}
+          </nav>
+        </details>
+      </div>
+    </header>
+    <main id="main" tabindex="-1" class="w-full flex-1" transition:name="page-content">
+      <div class:list={[!home && 'page-width pb-24 md:pb-32']}>
+      {!home && title && <div class="pt-16 pb-12 md:pt-24 md:pb-18">
+        <p class="eyebrow mb-6 flex items-center gap-3 text-muted"><span class="h-px w-7 bg-accent" aria-hidden="true"></span>{eyebrow}</p>
+        <h1 class="max-w-5xl text-[clamp(3rem,7vw,6rem)] leading-[1.06] font-medium tracking-[-0.065em] text-balance">{title}</h1>
+        {intro && <p class="mt-7 max-w-2xl text-lg leading-relaxed text-muted md:text-xl">{intro}</p>}
+      </div>}
+      {Astro.props.frontmatter ? <Prose><slot /></Prose> : <slot />}
+      </div>
+    </main>
+    <footer class="shrink-0 bg-night text-white" transition:name="site-footer" transition:persist="site-footer">
+      <div class="page-width">
+        <div class="flex flex-col items-start justify-between gap-8 border-b border-white/15 py-14 sm:flex-row sm:items-end md:py-18">
+          <div><p class="eyebrow mb-4 text-white/60">Keep the conversation going</p><p class="text-4xl leading-tight font-medium tracking-[-0.04em] md:text-5xl">Let’s talk{' '}<span class="font-editorial font-normal italic text-[#e9bdab]">research.</span></p></div>
+          <a class="group inline-flex shrink-0 items-center gap-8 rounded-full border border-white/30 px-6 py-4 text-sm font-semibold transition-colors hover:border-white hover:bg-white hover:text-ink" href={withBase('/contact/')}>Get in touch <Arrow class="size-5 transition-transform group-hover:translate-x-1" /></a>
+        </div>
+        <div class="flex flex-col justify-between gap-6 py-8 text-xs text-white/60 sm:flex-row sm:items-center">
+          <a class="flex items-center gap-3 text-sm font-semibold text-white" href={withBase('/')}><Mark class="size-5" />{site.title}</a>
+          <p>© {new Date().getFullYear()} {site.title}</p>
+          <a class="inline-flex items-center gap-2 hover:text-white" href="#main">Back to top <span aria-hidden="true">↑</span></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

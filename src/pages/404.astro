@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import { withBase } from '../lib/urls';
+---
+<Layout title="A little off course." eyebrow="404 / Page not found" intro="The page you’re looking for isn’t here. Let’s get you back to the research." noindex>
+  <a class="inline-flex items-center gap-6 rounded-full bg-ink px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-accent" href={withBase('/')}><Arrow class="size-4 rotate-180" /> Return home</a>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { catalog } from '../lib/catalog';
+import { withBase } from '../lib/urls';
+const sorted = catalog.publications;
+---
+<Layout title="Ideas, in print." eyebrow="03 / Publications" intro="Papers, findings, and contributions from the group. An evolving record of our work.">
+  <div class="mb-8 flex items-center justify-between"><h2 class="eyebrow text-muted">Publication archive</h2><span class="text-sm tabular-nums text-muted">{String(sorted.length).padStart(2, '0')} {sorted.length === 1 ? 'publication' : 'publications'}</span></div>
+  {sorted.length > 0 ? <div class="border-b border-line">
+    {sorted.map((publication) => <article id={publication.publicationId} class="grid scroll-mt-28 gap-5 border-t border-line py-9 sm:grid-cols-[100px_1fr] lg:grid-cols-[140px_1fr] lg:py-12">
+      <span class="text-sm font-medium tabular-nums text-accent">{publication.year}</span>
+      <div><p class="eyebrow mb-4 text-muted">{publication.venue}</p><h2 class="max-w-4xl text-2xl leading-snug font-medium tracking-[-0.035em] md:text-3xl">{publication.url ? <a class="transition-colors hover:text-accent" href={withBase(publication.url)}>{publication.title}</a> : publication.title}</h2>
+        <p class="mt-4 text-sm leading-relaxed text-muted">{publication.authors.map((author, index) => <>{index > 0 && ', '}{author.personId ? <a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/people/#${author.personId}`)}>{author.name}</a> : author.name}</>)}</p>
+        {publication.url && <a class="text-link mt-6" href={withBase(publication.url)}>Read publication <Arrow class="size-4" diagonal /></a>}
+      </div>
+    </article>)}
+  </div> : <EmptyState title="No publications listed yet." description="Papers, preprints, and other research outputs will appear here." />}
+</Layout>

@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { catalog } from '../lib/catalog';
+import { withBase } from '../lib/urls';
+const { people } = catalog;
+const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('');
+---
+<Layout title="People & perspectives." eyebrow="02 / The group" intro="Meet the people behind the questions, the ideas, and the work.">
+  <div class="mb-8 flex items-center justify-between border-b border-line pb-5"><h2 class="eyebrow text-muted">Our people</h2><span class="text-sm tabular-nums text-muted">{String(people.length).padStart(2, '0')} {people.length === 1 ? 'person' : 'people'}</span></div>
+  {people.length > 0 ? <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+    {people.map((person) => (
+      <article id={person.personId} class="scroll-mt-28">
+        <div class="relative mb-6 aspect-[4/4.4] overflow-hidden rounded-sm bg-panel">
+          {person.photo ? <img class="size-full object-cover" src={withBase(person.photo)} alt={person.name} width="640" height="704" loading="lazy" /> : <div class="flex size-full items-center justify-center" aria-hidden="true"><div class="absolute size-[75%] rounded-full border border-line"></div><div class="absolute size-[55%] rounded-full border border-line"></div><span class="font-editorial text-8xl italic text-muted/70">{initials(person.name)}</span></div>}
+        </div>
+        <p class="eyebrow mb-3 text-accent">{person.role}</p>
+        <h3 class="text-2xl font-medium tracking-[-0.035em]">{person.name}</h3>
+        <p class="mt-3 max-w-sm text-sm leading-[1.85] text-muted">{person.bio}</p>
+        {person.website && <a class="text-link mt-5" href={withBase(person.website)}>View profile <Arrow class="size-4" diagonal /></a>}
+        {person.projects.length > 0 && <div class="mt-6 border-t border-line pt-5">
+          <h4 class="eyebrow mb-3 text-muted">Projects</h4>
+          <ul class="space-y-2 text-sm leading-relaxed">{person.projects.map((project) => <li><a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/projects/#${project.projectId}`)}>{project.title}</a></li>)}</ul>
+        </div>}
+        {person.publications.length > 0 && <div class="mt-6 border-t border-line pt-5">
+          <h4 class="eyebrow mb-3 text-muted">Publications</h4>
+          <ul class="space-y-2 text-sm leading-relaxed">{person.publications.map((publication) => <li><a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/publications/#${publication.publicationId}`)}>{publication.title}</a><span class="text-muted"> · {publication.year}</span></li>)}</ul>
+        </div>}
+      </article>
+    ))}
+  </div> : <EmptyState title="Meet the group, soon." description="Member profiles will be published here as they become available." />}
+</Layout>

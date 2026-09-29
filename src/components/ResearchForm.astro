@@ -1,0 +1,31 @@
+---
+// A decorative parametric form, calculated at build time. No canvas or runtime JS.
+function project(u: number, v: number) {
+  const radius = 137 + 56 * Math.cos(v);
+  const x = radius * Math.cos(u);
+  const y = radius * Math.sin(u);
+  const z = 56 * Math.sin(v);
+  const y1 = y * Math.cos(0.88) - z * Math.sin(0.88);
+  const z1 = y * Math.sin(0.88) + z * Math.cos(0.88);
+  const x1 = x * Math.cos(-0.45) + z1 * Math.sin(-0.45);
+  const angle = -0.52;
+  return `${(260 + x1 * Math.cos(angle) - y1 * Math.sin(angle)).toFixed(1)},${(260 + x1 * Math.sin(angle) + y1 * Math.cos(angle)).toFixed(1)}`;
+}
+const parallels = Array.from({ length: 30 }, (_, i) => Array.from({ length: 97 }, (_, j) => project(j / 96 * 2 * Math.PI, i / 30 * 2 * Math.PI)).join(' '));
+const meridians = Array.from({ length: 44 }, (_, i) => Array.from({ length: 49 }, (_, j) => project(i / 44 * 2 * Math.PI, j / 48 * 2 * Math.PI)).join(' '));
+---
+<div class="relative isolate aspect-square w-full overflow-hidden rounded-full bg-[#f2e7df]" aria-hidden="true">
+  <svg class="absolute inset-0 size-full" viewBox="0 0 520 520" fill="none">
+    <circle cx="260" cy="260" r="228" stroke="#d6c9c0" stroke-width="0.7" />
+    <circle cx="260" cy="260" r="203" stroke="#d6c9c0" stroke-width="0.7" stroke-dasharray="2 7" />
+    <path d="M0 260h520M260 0v520" stroke="#d6c9c0" stroke-width="0.7" />
+    <g stroke="#ba4328" stroke-width="0.7" opacity="0.72">
+      {parallels.map((points) => <polyline points={points} />)}
+      {meridians.map((points) => <polyline points={points} />)}
+    </g>
+    <circle cx="260" cy="32" r="4" fill="#ba4328" />
+    <circle cx="488" cy="260" r="4" fill="#ba4328" />
+    <circle cx="260" cy="488" r="4" fill="#ba4328" />
+    <circle cx="32" cy="260" r="4" fill="#ba4328" />
+  </svg>
+</div>

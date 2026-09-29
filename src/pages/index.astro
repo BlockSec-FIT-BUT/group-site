@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import ResearchForm from '../components/ResearchForm.astro';
+import { site } from '../site.config';
+import { withBase } from '../lib/urls';
+import { publishedNews, formatDate } from '../lib/news';
+
+const sections = [
+  { number: '01', title: 'Projects', subtitle: 'The questions we explore', description: 'Discover our projects and the people taking them forward.', url: '/projects/' },
+  { number: '02', title: 'Publications', subtitle: 'The ideas we share', description: 'Explore papers, publications, and other outputs from our work.', url: '/publications/' },
+  { number: '03', title: 'People', subtitle: 'The minds behind the work', description: 'Get to know the people and perspectives that make up the group.', url: '/people/' },
+];
+const posts = (await publishedNews()).slice(0, 3);
+---
+<Layout home>
+  <section class="page-width relative grid items-center gap-10 pt-14 pb-16 md:pt-20 md:pb-24 lg:grid-cols-[1.35fr_1fr] lg:gap-4 lg:pt-24 lg:pb-28">
+    <div class="relative z-10">
+      <p class="eyebrow mb-8 flex items-center gap-3 text-muted"><span class="size-1.5 rounded-full bg-accent" aria-hidden="true"></span>{site.home.eyebrow}</p>
+      <h1 class="text-[clamp(3.15rem,6.4vw,6rem)] leading-[1.09] font-medium tracking-[-0.065em]">
+        <span class="block">{site.home.headline}</span>
+        <em class="block font-editorial font-normal tracking-[-0.035em] text-accent">{site.home.emphasis}</em>
+      </h1>
+      <p class="mt-7 max-w-100 text-lg leading-[1.8] text-muted">{site.home.introduction}</p>
+      <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-5">
+        <a class="group inline-flex items-center gap-6 rounded-full bg-ink px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-accent" href={withBase('/projects/')}>Explore our projects <Arrow class="size-5 transition-transform group-hover:translate-x-1" /></a>
+        <a class="text-link" href={withBase('/people/')}>Meet the group <Arrow class="size-4" diagonal /></a>
+      </div>
+    </div>
+    <div class="mx-auto w-full max-w-90 sm:max-w-105 lg:max-w-none lg:pl-4"><ResearchForm /></div>
+  </section>
+
+  <section class="border-t border-line" aria-labelledby="explore-title">
+    <div class="page-width pt-10 pb-16 md:pt-12 md:pb-24">
+      <div class="mb-10 flex flex-wrap items-center justify-between gap-4">
+        <h2 id="explore-title" class="eyebrow text-muted">A closer look</h2>
+        <a class="text-link text-muted" href={withBase('/news/')}>News from the group <Arrow class="size-4" /></a>
+      </div>
+      <div class="grid gap-8 md:grid-cols-3 md:gap-0">
+        {sections.map((section) => (
+          <a class="group border-t border-line pt-6 md:border-t-0 md:border-l md:px-8 md:pt-0 md:first:border-l-0 md:first:pl-0 md:last:pr-0" href={withBase(section.url)}>
+            <div class="mb-9 flex items-center justify-between"><span class="text-xs font-semibold tracking-widest text-accent">{section.number}</span><Arrow class="size-5 text-muted transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent" diagonal /></div>
+            <h3 class="text-[32px] leading-tight font-medium tracking-[-0.045em] transition-colors group-hover:text-accent">{section.title}</h3>
+            <p class="mt-2 font-editorial text-[25px] italic text-muted">{section.subtitle}</p>
+            <p class="mt-5 max-w-80 text-sm leading-[1.85] text-muted">{section.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && <section class="border-t border-line bg-panel/50" aria-labelledby="news-title">
+    <div class="page-width py-16 md:py-24">
+      <div class="mb-10 flex items-end justify-between gap-4"><div><p class="eyebrow mb-4 text-muted">From the group</p><h2 id="news-title" class="text-4xl font-medium tracking-[-0.045em]">Latest updates.</h2></div><a class="text-link" href={withBase('/news/')}>All news <Arrow class="size-4" /></a></div>
+      {posts.map((post) => <a class="group grid gap-3 border-t border-line py-7 sm:grid-cols-[180px_1fr_24px] sm:items-center" href={withBase(`/news/${post.id}/`)}><time class="text-sm text-muted" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><h3 class="text-xl font-medium tracking-tight group-hover:text-accent">{post.data.title}</h3><Arrow class="hidden size-5 sm:block" diagonal /></a>)}
+    </div>
+  </section>}
+</Layout>

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "@fontsource-variable/manrope";
+@import "@fontsource/instrument-serif/400-italic.css";
+@plugin "@tailwindcss/typography";
+
+/* Edit the identity here. Fonts are bundled locally; no external font requests. */
+@theme {
+  --color-accent: #c44225;
+  --color-ink: #20211f;
+  --color-muted: #696a65;
+  --color-line: #ddded8;
+  --color-surface: #fafaf7;
+  --color-panel: #f0f1eb;
+  --color-night: #232922;
+  --font-sans: "Manrope Variable", sans-serif;
+  --font-editorial: "Instrument Serif", Georgia, serif;
+}
+
+@layer base {
+  html { @apply bg-surface; scroll-behavior: smooth; scrollbar-gutter: stable; }
+  body { @apply bg-surface font-sans text-ink antialiased; }
+  body { font-feature-settings: "ss01" on; }
+  a, button, summary { -webkit-tap-highlight-color: transparent; }
+  button, summary { cursor: pointer; }
+  ::selection { @apply bg-accent text-white; }
+  :focus-visible { @apply rounded-sm outline-2 outline-offset-6 outline-accent; }
+  summary::-webkit-details-marker { display: none; }
+}
+
+@utility page-width {
+  @apply mx-auto w-[calc(100%-3rem)] max-w-320 md:w-[calc(100%-6rem)];
+}
+@utility eyebrow {
+  @apply text-xs leading-relaxed font-semibold tracking-[0.14em] uppercase;
+}
+@utility text-link {
+  @apply inline-flex items-center gap-3 text-sm font-semibold underline-offset-4 transition-colors hover:text-accent hover:underline;
+}
+
+/* Only the full-width content region fades. The shell never animates. */
+::view-transition-group(*) { animation: none; }
+::view-transition-group(page-content) { overflow: clip; }
+::view-transition-old(*),
+::view-transition-new(*) { animation: none; }
+::view-transition-old(page-content),
+::view-transition-new(page-content) {
+  width: 100%;
+  height: auto;
+  object-fit: none;
+  object-position: top left;
+}
+::view-transition-old(page-content) { animation: page-fade-out 160ms ease-out both; }
+::view-transition-new(page-content) { animation: page-fade-in 160ms ease-in both; }
+
+@keyframes page-fade-out { to { opacity: 0; } }
+@keyframes page-fade-in { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}

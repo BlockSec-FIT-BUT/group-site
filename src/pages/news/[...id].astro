@@ -1,0 +1,21 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Prose from '../../components/Prose.astro';
+import Arrow from '../../components/Arrow.astro';
+import { publishedNews, formatDate } from '../../lib/news';
+import { withBase } from '../../lib/urls';
+export async function getStaticPaths() {
+  return (await publishedNews()).map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+interface Props { post: CollectionEntry<'news'> }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Layout title={post.data.title} description={post.data.description} eyebrow="From the group">
+  <article class="grid gap-8 border-t border-line pt-10 lg:grid-cols-[220px_1fr]">
+    <div><p class="eyebrow mb-3 text-muted">Published</p><time class="text-sm text-muted" datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></div>
+    <Prose><Content /></Prose>
+  </article>
+  <a class="text-link mt-16 border-t border-line pt-8" href={withBase('/news/')}><Arrow class="size-4 rotate-180" /> All news</a>
+</Layout>

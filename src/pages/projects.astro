@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { catalog } from '../lib/catalog';
+import { withBase } from '../lib/urls';
+const { projects } = catalog;
+---
+<Layout title="Projects worth exploring." eyebrow="01 / Our projects" intro="Research systems and prototypes from our work on blockchains and system security.">
+  <div class="mb-8 flex items-center justify-between"><h2 class="eyebrow text-muted">Project index</h2><span class="text-sm tabular-nums text-muted">{String(projects.length).padStart(2, '0')} {projects.length === 1 ? 'project' : 'projects'}</span></div>
+  {projects.length > 0 ? <div class="border-b border-line">
+    {projects.map((project, index) => <article id={project.projectId} class="grid scroll-mt-28 gap-6 border-t border-line py-10 sm:grid-cols-[80px_1fr] lg:grid-cols-[80px_1fr_1fr] lg:gap-10 lg:py-14">
+      <span class="eyebrow text-accent">{String(index + 1).padStart(2, '0')}</span>
+      <h2 class="max-w-md text-3xl leading-tight font-medium tracking-[-0.045em]">{project.title}</h2>
+      <div><p class="max-w-xl text-base leading-[1.8] text-muted">{project.description}</p>
+        {project.members.length > 0 && <div class="mt-6">
+          <h3 class="eyebrow mb-3 text-muted">People</h3>
+          <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">{project.members.map((person) => <li><a class="underline decoration-line underline-offset-4 hover:text-accent" href={withBase(`/people/#${person.personId}`)}>{person.name}</a></li>)}</ul>
+        </div>}
+        {project.url && <a class="text-link mt-6" href={withBase(project.url)}>Explore project <Arrow class="size-4" diagonal /></a>}
+      </div>
+    </article>)}
+  </div> : <EmptyState title="No projects published yet." description="Project details and the people involved will appear here." />}
+</Layout>

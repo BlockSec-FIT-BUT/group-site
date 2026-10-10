@@ -140,6 +140,18 @@ export const people: Person[] = [
     ]
   },
   {
+    "personId": "michal-las",
+    "name": "Michal Ľaš",
+    "authorAliases": ["M. Ľaš"],
+    "role": "Member",
+    "position": "Ph.D. student",
+    "bio": "Ph.D. student researching zero-knowledge proofs, decentralized identities, and proof-of-useful-work consensus protocols.",
+    "qualifications": "Ing.",
+    "affiliation": "Department of Intelligent Systems, Faculty of Information Technology, Brno University of Technology",
+    "email": "ilas.m@fit.vut.cz",
+    "researchInterests": ["Zero-knowledge Cryptoggraphy", "Decentralized identity and privacy", "Blockchains and decentralized applications"]
+  },
+  {
     "personId": "jozef-drga",
     "name": "Jozef Drga",
     "role": "Alumni",

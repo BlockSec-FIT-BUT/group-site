@@ -14,6 +14,18 @@ export interface Project {
 // Sources and scope: docs/content-sources.md.
 export const projects: Project[] = [
   {
+    "projectId": "social-capital",
+    "title": "Proof-of-Social-Capital",
+    "description": "PoSC changes Gasper of Ethereum to replace stake with social capital: every verified unique person gets the same non-transferable endorsement budget to give to content creators, who become validators weighted by the concave-scaled support they receive, so control of the ledger rests on support from many people, which is hard to buy in bulk, instead of on money.",
+    "personIds": [
+      "juraj-mariani",
+      "ivan-homoliak",
+      "martin-peresini"
+    ],
+    "url": "https://github.com/JurajMariani/scap",
+    "image": "/assets/images/projects/posc.png"
+  },
+  {
     "projectId": "pos-copor",
     "title": "PoS-CoPOR",
     "description": "A proof-of-stake consensus protocol that hides the next block proposer through native onion routing to reduce exposure to targeted denial-of-service attacks.",

@@ -420,4 +420,37 @@ export const publicationEntries: PublicationInput[] = [
 }`,
         personIds: ["ivan-homoliak"],
     },
+    {
+        bibtex: String.raw`@INPROCEEDINGS{11575468,
+  author={Mariani, Juraj and Homoliak, Ivan},
+  booktitle={2026 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)}, 
+  title={Social Capital Consensus for Blockchains: Exploring Design Options for Replacement of Proof-of-Stake by Social Influence}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-5},
+  keywords={Design methodology;Protocols;Privacy;Costing;Costs;Printing;Equations;Modeling;Security;Social networking (online);Proof-of-Stake;blockchain;consensus protocols;attention-based economy;social capital;zk-SNARKs},
+  doi={10.1109/ICBC67748.2026.11575468},
+  ISSN={2832-8906},
+  month={June}
+  }`,
+        personIds: ["juraj-mariani", "ivan-homoliak"],
+        projectIds: ["social-capital"],
+    },
+    {
+        bibtex: String.raw`@INPROCEEDINGS{11575485,
+  author={Hladký, Tomáš and Perešíni, Martin and Mariani, Juraj and Homoliak, Ivan},
+  booktitle={2026 IEEE International Conference on Blockchain and Cryptocurrency (ICBC)}, 
+  title={SSLE-DAG: A High-Throughput Proof-of-Stake Consensus Protocol Combining an Adaptive DAG with a Single Secret Leader Election}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-9},
+  keywords={Protocols;Public key;Information rates;Modeling;Throughput;Production;Conferences;Merging;Poles and zeros;Publishing;Proof-of-Stake;Single Secret Leader Election;DAG consensus;zk-SNARK;Denial-of-Service resistance;Blockchain simulation},
+  doi={10.1109/ICBC67748.2026.11575485},
+  ISSN={2832-8906},
+  month={June}
+  }`,
+        personIds: ["martin-peresini", "juraj-mariani", "ivan-homoliak"]
+    },
 ];

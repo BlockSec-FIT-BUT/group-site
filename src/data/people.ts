@@ -53,6 +53,51 @@ export const people: Person[] = [
     ]
   },
   {
+    "personId": "martin-peresini",
+    "name": "Martin Perešíni",
+    "role": "Member",
+    "bio": "Researcher whose publications cover blockchain simulation, incentive attacks, consensus protocols, and cryptocurrency wallets.",
+    "qualifications": "Ing., Ph.D.",
+    "affiliation": "Department of Intelligent Systems, Faculty of Information Technology, Brno University of Technology",
+    "email": "iperesini@fit.vut.cz",
+    "phone": "+420 54114 1179",
+    "office": "A222",
+    "identifiers": [
+      {
+        "label": "ORCID",
+        "value": "0000-0002-2875-9567"
+      }
+    ]
+  },
+  {
+    "personId": "juraj-mariani",
+    "name": "Juraj Mariani",
+    "role": "Member",
+    "bio": "Second-year Ph.D. student at the Faculty of Information Technology, Brno University of Technology, and a member of the BlockSec@FIT group. His research asks whether blockchain consensus has to be tied to money at all. His main work is Proof-of-Social-Capital (PoSC), a family of consensus protocols in which validators earn consensus weight from the social support they receive rather than from staked capital. He formalized the PoSC design space, presented at IEEE ICBC 2026. He then built a reference instantiation on Ethereum’s Gasper that uses zkSNARK-based private enrollment, and analyzed its security economics: what social capital can buy, and what it costs. He also works on Sybil-resistant decentralized identity, privacy-preserving cryptocurrency mixers, and high-throughput proof-of-stake consensus.",
+    "qualifications": "Ing.",
+    "position": "Ph.D. student",
+    "affiliation": "Department of Intelligent Systems, Faculty of Information Technology, Brno University of Technology",
+    "email": "imariani@fit.vut.cz",
+    "phone": "+420 54114 1344",
+    "office": "A223",
+    "researchInterests": [
+      "Security of consensus protocols",
+      "Decentralized identity and uniqueness",
+      "Privacy and anonymity on blockchains",
+      "Zero-knowledge cryptography"
+    ],
+    "identifiers": [
+      {
+        "label": "ORCID",
+        "value": "0009-0003-0942-0634"
+      }, 
+      {
+        "label": "Google Scholar ID",
+        "value": "VjTPH0AAAAAJ"
+      }
+    ]
+  },
+  {
     "personId": "richard-gazdik",
     "name": "Richard Gazdík",
     "role": "Member",
@@ -82,29 +127,6 @@ export const people: Person[] = [
     "email": "ilapes@fit.vut.cz"
   },
   {
-    "personId": "juraj-mariani",
-    "name": "Juraj Mariani",
-    "role": "Member",
-    "bio": "Ph.D. student researching consensus protocols, privacy and uniqueness on blockchains, and zero-knowledge proofs.",
-    "qualifications": "Ing.",
-    "position": "Ph.D. student",
-    "affiliation": "Department of Intelligent Systems, Faculty of Information Technology, Brno University of Technology",
-    "email": "imariani@fit.vut.cz",
-    "phone": "+420 54114 1344",
-    "office": "A223",
-    "researchInterests": [
-      "Consensus protocols",
-      "Privacy and uniqueness on blockchains",
-      "Zero-knowledge proofs"
-    ],
-    "identifiers": [
-      {
-        "label": "ORCID",
-        "value": "0009-0003-0942-0634"
-      }
-    ]
-  },
-  {
     "personId": "samuel-oleksak",
     "name": "Samuel Olekšák",
     "role": "Member",
@@ -119,23 +141,6 @@ export const people: Person[] = [
       {
         "label": "ORCID",
         "value": "0009-0008-9098-6171"
-      }
-    ]
-  },
-  {
-    "personId": "martin-peresini",
-    "name": "Martin Perešíni",
-    "role": "Member",
-    "bio": "Researcher whose publications cover blockchain simulation, incentive attacks, consensus protocols, and cryptocurrency wallets.",
-    "qualifications": "Ing., Ph.D.",
-    "affiliation": "Department of Intelligent Systems, Faculty of Information Technology, Brno University of Technology",
-    "email": "iperesini@fit.vut.cz",
-    "phone": "+420 54114 1179",
-    "office": "A222",
-    "identifiers": [
-      {
-        "label": "ORCID",
-        "value": "0000-0002-2875-9567"
       }
     ]
   },
